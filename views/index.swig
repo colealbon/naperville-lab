@@ -3,7 +3,6 @@
 <head>
     <link rel="shortcut icon" href="favicon.ico" />
     <meta http-equiv="CONTENT-TYPE" content="text/html" charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="stylesheets/wireframe.css">
     <title>{{ app_name }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <script src="/js/socket.io-1.4.5.js"></script>
