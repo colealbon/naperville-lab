@@ -13,6 +13,7 @@
     <div id="app"></div>
     <script src="js/react-15.0.1.js"></script>
     <script src="js/react-dom-15.0.1.js"></script>
+    <script src="js/react-draggable.js"></script>
     <script src="js/Header.js"></script>
     <script src="js/Timestamp.js"></script>
     <script src="js/Footer.js"></script>
