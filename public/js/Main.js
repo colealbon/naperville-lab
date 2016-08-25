@@ -5,7 +5,11 @@ var Main = React.createClass({
     return React.createElement(
       "main",
       null,
-      "main",
+      React.createElement(
+        "span",
+        { id: "debuglagel", visibility: "hidden" },
+        "main"
+      ),
       React.createElement(Header, { app_name: this.props.app_name }),
       React.createElement(UserSettings, null),
       React.createElement(Stage, { id: "o", participantlist: this.props.participantlist, size: "100%" }),

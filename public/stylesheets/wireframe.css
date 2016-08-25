@@ -26,3 +26,6 @@ footer {
 span#serverlocale {
     background: yellow
 }
+span#debuglabel {
+    visibility: visible;
+}

@@ -11,8 +11,6 @@ var App = React.createClass({
             var newState = this.state;
             newState.participantlist = newparticipantlist;
             this.setState(newState);
-            //console.log(newState.participantlist)
-            //document.getElementById('timestamp').innerHTML = newState.participantList;
         }
     },
     componentDidMount: function() {

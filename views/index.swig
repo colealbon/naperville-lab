@@ -5,10 +5,10 @@
     <meta http-equiv="CONTENT-TYPE" content="text/html" charset="utf-8">
     <title>{{ app_name }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="stylesheets/wireframe.css">
     <script src="/js/socket.io-1.4.5.js"></script>
 </head>
 <body class="w3-container">
-    body
     <div id="app"></div>
     <script src="js/react-15.0.1.js"></script>
     <script src="js/react-dom-15.0.1.js"></script>
@@ -27,6 +27,5 @@
             document.getElementById('app')
           );
     </script>
-
 </body>
 </html>
