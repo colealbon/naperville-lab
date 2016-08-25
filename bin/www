@@ -1,0 +1,142 @@
+#!/usr/bin/env node
+'use strict';
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('demo:server');
+var http = require('http');
+var config = require(__dirname + '/../config/options.js');
+
+const assign = require('object-assign')
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || config.http_port || '3000');
+// app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app.callback());
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+  console.log(addr, addr.port);
+}
+
+var io = require('socket.io')(server);
+
+console.log("socketio starting " + new Date().toLocaleString());
+
+var PULSE = parseInt(new Date().getTime() / 1000, 10);
+var PARTICIPANTS = [];
+
+io.on('connection', function(socket) {
+    // node server time
+    //console.log(io);
+    socket.emit('heartbeat', new Date().getTime());
+    var pulse = setInterval(function emitpulse() {
+        var newpulse = parseInt(new Date().getTime() / 1000, 10);
+          if (PULSE !== newpulse) {
+              io.sockets.emit('heartbeat', new Date().getTime());
+              PULSE = newpulse;
+          }
+    }, 1000);
+
+    socket.on('disconnect', function() {
+        io.sockets.emit("userDisconnected");
+        console.log(PARTICIPANTS.length);
+        // delete entries in our collection of users if they're not connected
+        let participantsObj = assign(PARTICIPANTS);
+        PARTICIPANTS = participantsObj.map(function(participant) {
+          for (var connected in io.sockets.connected)
+              if(connected.indexOf(participant.id) !== -1)
+                 return participant
+        }).filter(function(participant) {
+              console.log(participant);
+              return participant != null;
+        });
+        clearInterval(pulse);
+    });
+
+    socket.on("newUser", function(newuser) {
+      let newUserObj = assign(newuser);
+      PARTICIPANTS.push(newUserObj);
+      //io.sockets.emit("newConnection", {users: PARTICIPANTS});
+      io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS));
+    });
+
+    socket.on("positionChange", function(data) {
+      _.findWhere(PARTICIPANTS, {id: socket.id}).name = data.name;
+      io.sockets.emit("positionChanged", {id: data.id, name: data.name});
+    });
+});
