@@ -9,7 +9,7 @@ npm start
 # for developers
 ### transpile jsx source files to js files
 ```
-node ./node_modules/babel-cli/bin/babel.js --watch --presets react jsx --out-dir ./public/js
+node ./node_modules/babel-cli/bin/babel.js --presets react jsx --out-dir ./public/js
 ```
 *comment out stylesheets/wireframe.css in views/index.swig to remove menacing borders*
 
