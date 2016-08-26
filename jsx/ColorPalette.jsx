@@ -1,13 +1,18 @@
 var ColorPalette = React.createClass({
-  render: function() {
-    return (
-    <section id='colorpalette'>
-        color palette section
-        <ColorCircle size="20px" />
-        <ColorCircle size="20px" />
-        <ColorCircle size="20px" />
-        <ColorCircle size="20px" />
-    </section>
-    );
+    paletteCircles: function() {
+        var userColor = this.props.userColor;
+        var setUserColor=this.props.setUserColor
+        return this.props.colorArr.map(function(circleColor) {
+            return <td><PaletteCircle key={circleColor} circleColor={circleColor} circleSize="20px" userColor={userColor} setUserColor={setUserColor} /></ td>
+        })
+    },
+    render: function() {
+        var i = 0
+        return (
+        <article id='colorpalette'>
+            color palette section
+            <table><tr>{this.paletteCircles()}</ tr></ table>
+        </ article>
+        );
   }
 });

@@ -16,8 +16,10 @@
     <script src="js/Header.js"></script>
     <script src="js/Timestamp.js"></script>
     <script src="js/Footer.js"></script>
-    <script src="js/ColorCircle.js"></script>
+    <script src="js/UserCircle.js"></script>
+    <script src="js/PaletteCircle.js"></script>
     <script src="js/ColorPalette.js"></script>
+    <script src="js/UserNameInput.js"></script>
     <script src="js/UserSettings.js"></script>
     <script src="js/Stage.js"></script>
     <script src="js/Main.js"></script>

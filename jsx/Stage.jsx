@@ -3,9 +3,9 @@ var Stage = React.createClass({
         var users = (this.props.participantlist) ? this.props.participantlist : '[{}]';
         var size = this.props.size;
         var usersArr = eval('(' + users + ')');
-        var circleMaxOffset = parseInt(this.props.size / 2);
+
         var userCircles = usersArr.map(function(user) {
-            return <ColorCircle key={user.id} id={user.id} color={user.color} size="20px" maxoffset={circleMaxOffset}/>
+            return <UserCircle key={user.id} id={user.id} color={user.color} size="20px" />
         })
         var stageStyle = {
             width: "20%",

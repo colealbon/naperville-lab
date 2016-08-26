@@ -1,19 +1,35 @@
-var ColorCircle = React.createClass({
-    displayName: "ColorCircle",
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-    render: function () {
-        var size = this.props.size;
-        var maxOffset = this.props.maxOffset;
-        var id = this.props.id;
-        var label = this.props.label;
-        return React.createElement(
-            "div",
-            { key: id },
-            React.createElement(
-                ReactDraggable,
-                null,
-                React.createElement(ColorCircle, { key: user.id, id: id, color: user.color, size: size, maxoffset: maxOffset, label: label })
-            )
-        );
-    }
+var DragableColorCircle = React.createClass({
+  displayName: "DragableColorCircle",
+
+  getInitialState: function () {
+    return {
+      activeDrags: 0,
+      deltaPosition: {
+        x: 0, y: 0
+      },
+      controlledPosition: {
+        x: -400, y: 200
+      }
+    };
+  },
+  handleDrag: function (e, ui) {
+    const { x, y } = this.state.deltaPosition;
+    this.setState({
+      deltaPosition: {
+        x: x + ui.deltaX,
+        y: y + ui.deltaY
+      }
+    });
+  },
+  render: function () {
+    const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
+    const { deltaPosition, controlledPosition } = this.state;
+    return React.createElement(
+      ReactDraggable,
+      _extends({ bounds: "body", onDrag: this.handleDrag }, dragHandlers),
+      React.createElement(ColorCircle, this.props)
+    );
+  }
 });
