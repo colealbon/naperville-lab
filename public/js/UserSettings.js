@@ -12,7 +12,7 @@ var UserSettings = React.createClass({
             "section",
             { id: "usersettings" },
             "user settings section ",
-            this.props.username,
+            this.props.userName,
             React.createElement(
                 "article",
                 { id: "selectedcolor" },
@@ -24,9 +24,9 @@ var UserSettings = React.createClass({
             ),
             React.createElement(
                 "article",
-                { id: "usernameinput" },
-                "username input article",
-                React.createElement(UserNameInput, { username: this.props.username })
+                { id: "userNameinput" },
+                "userName input article",
+                React.createElement(UserNameInput, { userName: this.props.userName, setUserName: this.props.setUserName })
             ),
             React.createElement(ColorPalette, { colorArr: this.props.colorArr, setUserColor: this.props.setUserColor })
         );

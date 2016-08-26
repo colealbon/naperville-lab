@@ -8,15 +8,15 @@ var UserSettings = React.createClass({
     };
     return (
     <section id='usersettings'>
-        user settings section {this.props.username}
+        user settings section {this.props.userName}
         <article id="selectedcolor">
         <div id="selected" style={circle100px}> </ div>
         </ article>
-        <article id='usernameinput'>
-        username input article
-        <UserNameInput username={this.props.username} />
+        <article id='userNameinput'>
+        userName input article
+        <UserNameInput userName={this.props.userName} setUserName={this.props.setUserName} />
         </article>
-        <ColorPalette colorArr={this.props.colorArr} setUserColor={this.props.setUserColor}/>
+        <ColorPalette colorArr={this.props.colorArr} setUserColor={this.props.setUserColor} />
     </section>
     );
   }

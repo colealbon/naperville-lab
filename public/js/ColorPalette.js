@@ -7,8 +7,8 @@ var ColorPalette = React.createClass({
         return this.props.colorArr.map(function (circleColor) {
             return React.createElement(
                 "td",
-                null,
-                React.createElement(PaletteCircle, { key: circleColor, circleColor: circleColor, circleSize: "20px", userColor: userColor, setUserColor: setUserColor })
+                { key: circleColor },
+                React.createElement(PaletteCircle, { circleColor: circleColor, circleSize: "20px", userColor: userColor, setUserColor: setUserColor })
             );
         });
     },
@@ -22,9 +22,13 @@ var ColorPalette = React.createClass({
                 "table",
                 null,
                 React.createElement(
-                    "tr",
+                    "tbody",
                     null,
-                    this.paletteCircles()
+                    React.createElement(
+                        "tr",
+                        null,
+                        this.paletteCircles()
+                    )
                 )
             )
         );

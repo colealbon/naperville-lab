@@ -25,6 +25,7 @@ var UserCircle = React.createClass({
         var size=this.props.size;
         var id=this.props.id;
         var label=this.props.label || this.props.id;
+        console.log('props', this.props);
         var circleStyle = {
             borderRadius: "50%",
             width: this.props.size,

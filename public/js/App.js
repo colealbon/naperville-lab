@@ -13,23 +13,34 @@ var App = React.createClass({
             var newState = this.state;
             newState.participantlist = newparticipantlist;
             this.setState(newState);
+            console.log(newState);
         }
+    },
+    setUserId: function (userId) {
+        if (this.state.userId !== userId) {
+            var newState = this.state;
+            newState.userId = userId;
+            this.setState(newState);
+        }
+    },
+    socket: io.connect(),
+    socketConn: function () {
+        var self = this;
+        self.socket.on('connect', function () {
+            let sessionId = self.socket.io.engine.id;
+            self.setUserId(sessionId);
+            self.socket.emit('newUser', { "id": sessionId, "color": self.state.userColor, "userName": self.state.userName });
+        });
+        self.socket.on('heartbeat', function (timestampval) {
+            self.handleHeartbeat(timestampval);
+        });
+        self.socket.on('participantlist', function (participantlist) {
+            self.handleParticipantList(participantlist);
+        });
     },
     componentDidMount: function () {
         this.setState({ mounted: true });
-        var self = this;
-        var socket = io.connect();
-        socket.on('connect', function () {
-            let sessionId = socket.io.engine.id;
-            // console.log('Connected ' + sessionId);
-            socket.emit('newUser', { "id": sessionId, "color": '#' + Math.floor(Math.random() * 16777215).toString(16) });
-        });
-        socket.on('heartbeat', function (timestampval) {
-            self.handleHeartbeat(timestampval);
-        });
-        socket.on('participantlist', function (participantlist) {
-            self.handleParticipantList(participantlist);
-        });
+        this.socketConn();
     },
     getColorArr: function () {
         let colorArr = [];
@@ -51,6 +62,14 @@ var App = React.createClass({
             this.setState(newState);
         }
     },
+    setUserName: function (userName) {
+        if (this.state.userName !== userName) {
+            var newState = this.state;
+            newState.userName = userName;
+            this.setState(newState);
+            this.socket.emit('userName', { "userId": this.state.userId, "userName": this.state.userName });
+        }
+    },
     getInitialState: function () {
         colorArr = this.getColorArr();
         return {
@@ -58,6 +77,7 @@ var App = React.createClass({
             time_stamp: this.props.time_stamp,
             mounted: false,
             colorArr: colorArr,
+            userName: 'anonymous',
             userColor: '#' + Math.floor(Math.random() * 16777215).toString(16)
         };
     },
@@ -67,9 +87,10 @@ var App = React.createClass({
             participantlist: this.state.participantlist,
             time_stamp: this.state.time_stamp,
             colorArr: this.state.colorArr,
-            username: this.state.username,
+            userName: this.state.userName,
             userColor: this.state.userColor,
-            setUserColor: this.setUserColor
+            setUserColor: this.setUserColor,
+            setUserName: this.setUserName
         });
     }
 });

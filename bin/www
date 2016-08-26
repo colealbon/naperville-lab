@@ -102,7 +102,6 @@ var PARTICIPANTS = [];
 
 io.on('connection', function(socket) {
     // node server time
-    //console.log(io);
     socket.emit('heartbeat', new Date().getTime());
     var pulse = setInterval(function emitpulse() {
         var newpulse = parseInt(new Date().getTime() / 1000, 10);
@@ -122,17 +121,21 @@ io.on('connection', function(socket) {
               if(connected.indexOf(participant.id) !== -1)
                  return participant
         }).filter(function(participant) {
-              console.log(participant);
-              return participant != null;
+            console.log(participant);
+            return participant != null;
         });
         clearInterval(pulse);
     });
 
-    socket.on("newUser", function(newuser) {
-      let newUserObj = assign(newuser);
-      PARTICIPANTS.push(newUserObj);
-      //io.sockets.emit("newConnection", {users: PARTICIPANTS});
-      io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS));
+    socket.on("newUser", function(newUser) {
+        let newUserObj = assign(newUser);
+        PARTICIPANTS.push(PARTICIPANTS[newUserObj.id] = newUserObj);
+        io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS));
+    });
+    socket.on("userName", function(userName) {
+        let newUserName = assign(userName);
+        PARTICIPANTS[userName.userId].UserName = userName.userName
+        io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS));
     });
 
     socket.on("positionChange", function(data) {

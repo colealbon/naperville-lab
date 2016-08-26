@@ -23,8 +23,8 @@ node ./node_modules/babel-cli/bin/babel.js --presets react jsx --out-dir ./publi
 # status (partially completed)  
 * <s>javascript program running under node.js</s>   
 * input your name limited to 16 characters
-* there must be at least 8 color patches to choose from
-* user can select a color by clicking on one of the patches
+* <s>there must be at least 8 color patches to choose from</s>
+* <s>user can select a color by clicking on one of the patches</s>
 * <s>different users can be logged in on same machine or different machines</s>
 * circle position communication between client and server must be through websocket
 * when a user closes the browser tab, circle must disappear for other users

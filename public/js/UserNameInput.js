@@ -1,18 +1,19 @@
 var UserNameInput = React.createClass({
   displayName: "UserNameInput",
 
-  getInitialState: function () {
-    return { username: this.props.username || "" };
-  },
   handleChange: function (event) {
-    this.setState({ username: event.target.value });
+    if (event.target.value.length > 16) {
+      alert("too many letters");
+      return;
+    }
+    this.props.setUserName(event.target.value);
   },
   render: function () {
-    username = this.state.username;
+    userName = this.props.userName;
     return React.createElement("input", {
       type: "text",
       maxlength: "16",
-      value: this.state.username,
+      value: this.props.userName,
       onChange: this.handleChange
     });
   }
