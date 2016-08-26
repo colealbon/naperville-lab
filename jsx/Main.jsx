@@ -11,7 +11,10 @@ var Main = React.createClass({
             setUserColor={this.props.setUserColor}
             setUserName={this.props.setUserName}
             />
-        <Stage id="o" participantlist={this.props.participantlist} size="100%"/>
+        <Stage
+            participantlist={this.props.participantlist}
+            broadcastState={this.props.broadcastState}
+            />
         <Footer time_stamp={this.props.time_stamp} />
     </main>
     );

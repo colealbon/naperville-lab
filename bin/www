@@ -126,10 +126,10 @@ io.on('connection', function(socket) {
         });
         clearInterval(pulse);
     });
-
     socket.on("newUser", function(newUser) {
         let newUserObj = assign(newUser);
         PARTICIPANTS.push(PARTICIPANTS[newUserObj.id] = newUserObj);
+        console.log(PARTICIPANTS)
         io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS));
     });
     socket.on("userName", function(userName) {
@@ -137,9 +137,8 @@ io.on('connection', function(socket) {
         PARTICIPANTS[userName.userId].UserName = userName.userName
         io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS));
     });
-
-    socket.on("positionChange", function(data) {
-      _.findWhere(PARTICIPANTS, {id: socket.id}).name = data.name;
-      io.sockets.emit("positionChanged", {id: data.id, name: data.name});
+    socket.on("userState", function(userState) {
+        console.log(userState)
+        io.sockets.emit("positionChanged", {id: data.id, name: data.name});
     });
 });

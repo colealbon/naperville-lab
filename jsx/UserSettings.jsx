@@ -15,6 +15,7 @@ var UserSettings = React.createClass({
         <article id='userNameinput'>
         userName input article
         <UserNameInput userName={this.props.userName} setUserName={this.props.setUserName} />
+        <button type="button" onClick={this.publishSettings}>submit</button>
         </article>
         <ColorPalette colorArr={this.props.colorArr} setUserColor={this.props.setUserColor} />
     </section>

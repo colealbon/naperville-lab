@@ -18,7 +18,10 @@ var Main = React.createClass({
                 setUserColor: this.props.setUserColor,
                 setUserName: this.props.setUserName
             }),
-            React.createElement(Stage, { id: "o", participantlist: this.props.participantlist, size: "100%" }),
+            React.createElement(Stage, {
+                participantlist: this.props.participantlist,
+                broadcastState: this.props.broadcastState
+            }),
             React.createElement(Footer, { time_stamp: this.props.time_stamp })
         );
     }

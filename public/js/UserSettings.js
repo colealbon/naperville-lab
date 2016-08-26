@@ -26,7 +26,12 @@ var UserSettings = React.createClass({
                 "article",
                 { id: "userNameinput" },
                 "userName input article",
-                React.createElement(UserNameInput, { userName: this.props.userName, setUserName: this.props.setUserName })
+                React.createElement(UserNameInput, { userName: this.props.userName, setUserName: this.props.setUserName }),
+                React.createElement(
+                    "button",
+                    { type: "button", onClick: this.publishSettings },
+                    "submit"
+                )
             ),
             React.createElement(ColorPalette, { colorArr: this.props.colorArr, setUserColor: this.props.setUserColor })
         );

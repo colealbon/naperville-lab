@@ -14,6 +14,16 @@ var App = React.createClass({
             console.log(newState)
         }
     },
+    broadcastState: function() {
+        this.socket.emit('userState', {
+            "userId": this.state.userId,
+            "userColor": this.state.userColor,
+            "userName": this.state.userName,
+            "userDeltaPosition": this.state.userDeltaPosition,
+            "userControlledPosition": this.state.userDeltaPosition,
+            }
+        );
+    },
     setUserId: function(userId) {
         if (this.state.userId !== userId) {
             var newState = this.state;
@@ -27,7 +37,7 @@ var App = React.createClass({
         self.socket.on('connect', function () {
           let sessionId = self.socket.io.engine.id;
           self.setUserId(sessionId);
-          self.socket.emit('newUser', {"id": sessionId, "color": self.state.userColor, "userName": self.state.userName} );
+          self.socket.emit('newUser', {"userId": sessionId, "userColor": self.state.userColor, "userName": self.state.userName} );
         });
         self.socket.on('heartbeat', function (timestampval) {
             self.handleHeartbeat(timestampval);
@@ -76,7 +86,14 @@ var App = React.createClass({
             mounted: false,
             colorArr: colorArr,
             userName: 'anonymous',
-            userColor: '#'+Math.floor(Math.random()*16777215).toString(16)
+            userColor: '#'+Math.floor(Math.random()*16777215).toString(16),
+            activeDrags: 0,
+            deltaPosition: {
+              x: 0, y: 0
+            },
+            controlledPosition: {
+              x: -400, y: 200
+            }
         };
     },
     render: function() {
