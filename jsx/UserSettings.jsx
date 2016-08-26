@@ -1,4 +1,7 @@
 var UserSettings = React.createClass({
+    broadcastState: function() {
+        this.props.broadcastState()
+    },
     render: function() {
     var circle100px = {
         borderRadius: "50%",
@@ -15,7 +18,7 @@ var UserSettings = React.createClass({
         <article id='userNameinput'>
         userName input article
         <UserNameInput userName={this.props.userName} setUserName={this.props.setUserName} />
-        <button type="button" onClick={this.publishSettings}>submit</button>
+        <button type="button" onClick={this.broadcastState}>submit</button>
         </article>
         <ColorPalette colorArr={this.props.colorArr} setUserColor={this.props.setUserColor} />
     </section>

@@ -16,7 +16,8 @@ var Main = React.createClass({
                 colorArr: this.props.colorArr,
                 userColor: this.props.userColor,
                 setUserColor: this.props.setUserColor,
-                setUserName: this.props.setUserName
+                setUserName: this.props.setUserName,
+                broadcastState: this.props.broadcastState
             }),
             React.createElement(Stage, {
                 participantlist: this.props.participantlist,

@@ -15,8 +15,10 @@ var App = React.createClass({
         }
     },
     broadcastState: function() {
-        this.socket.emit('userState', {
+        var self = this;
+        self.socket.emit('broadcastState', {
             "userId": this.state.userId,
+            "sessionId": this.state.sessionId,
             "userColor": this.state.userColor,
             "userName": this.state.userName,
             "userDeltaPosition": this.state.userDeltaPosition,
@@ -31,12 +33,19 @@ var App = React.createClass({
             this.setState(newState);
         }
     },
+    setSessionId: function(sessionId) {
+        if (this.state.sessionId !== sessionId) {
+            var newState = this.state;
+            newState.sessionId = sessionId;
+            this.setState(newState);
+        }
+    },
     socket: io.connect(),
     socketConn: function() {
         var self = this;
         self.socket.on('connect', function () {
           let sessionId = self.socket.io.engine.id;
-          self.setUserId(sessionId);
+          self.setSessionId(sessionId);
           self.socket.emit('newUser', {"userId": sessionId, "userColor": self.state.userColor, "userName": self.state.userName} );
         });
         self.socket.on('heartbeat', function (timestampval) {
@@ -78,14 +87,20 @@ var App = React.createClass({
             this.socket.emit('userName', {"userId": this.state.userId, "userName": this.state.userName})
         }
     },
+    getGuid: function () {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+            return v.toString(16);
+            });
+    },
     getInitialState: function() {
-        colorArr = this.getColorArr();
         return {
             app_name: this.props.app_name,
             time_stamp: this.props.time_stamp,
             mounted: false,
-            colorArr: colorArr,
-            userName: 'anonymous',
+            userId: this.getGuid(),
+            colorArr: this.getColorArr(),
+            userName: 'xxxxx',
             userColor: '#'+Math.floor(Math.random()*16777215).toString(16),
             activeDrags: 0,
             deltaPosition: {
@@ -107,6 +122,7 @@ var App = React.createClass({
               userColor={this.state.userColor}
               setUserColor={this.setUserColor}
               setUserName={this.setUserName}
+              broadcastState={this.broadcastState}
            />
       );
     }

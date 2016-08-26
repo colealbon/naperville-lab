@@ -10,6 +10,7 @@ var Main = React.createClass({
             userColor={this.props.userColor}
             setUserColor={this.props.setUserColor}
             setUserName={this.props.setUserName}
+            broadcastState={this.props.broadcastState}
             />
         <Stage
             participantlist={this.props.participantlist}

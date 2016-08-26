@@ -6,7 +6,7 @@ var UserCircle = React.createClass({
     render: function() {
         const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
         //const {deltaPosition, controlledPosition} = this.state;
-        console.log(this.state)
+        //console.log(this.state)
         var circleStyle = {
             borderRadius: "50%",
             width: "20px",

@@ -1,6 +1,9 @@
 var UserSettings = React.createClass({
     displayName: "UserSettings",
 
+    broadcastState: function () {
+        this.props.broadcastState();
+    },
     render: function () {
         var circle100px = {
             borderRadius: "50%",
@@ -29,7 +32,7 @@ var UserSettings = React.createClass({
                 React.createElement(UserNameInput, { userName: this.props.userName, setUserName: this.props.setUserName }),
                 React.createElement(
                     "button",
-                    { type: "button", onClick: this.publishSettings },
+                    { type: "button", onClick: this.broadcastState },
                     "submit"
                 )
             ),

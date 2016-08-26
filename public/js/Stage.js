@@ -2,7 +2,7 @@ var Stage = React.createClass({
     displayName: 'Stage',
 
     render: function () {
-        console.log('partipantlist', this.props.participantlist);
+        //console.log('partipantlist',this.props.participantlist)
         var users = this.props.participantlist ? this.props.participantlist : '[{}]';
         var usersArr = eval('(' + users + ')');
         var userCircles = usersArr.map(function (user) {

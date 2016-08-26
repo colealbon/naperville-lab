@@ -109,36 +109,44 @@ io.on('connection', function(socket) {
               io.sockets.emit('heartbeat', new Date().getTime());
               PULSE = newpulse;
           }
-    }, 1000);
+    }, 10000);
 
     socket.on('disconnect', function() {
-        io.sockets.emit("userDisconnected");
-        console.log(PARTICIPANTS.length);
-        // delete entries in our collection of users if they're not connected
-        let participantsObj = assign(PARTICIPANTS);
-        PARTICIPANTS = participantsObj.map(function(participant) {
-          for (var connected in io.sockets.connected)
-              if(connected.indexOf(participant.id) !== -1)
-                 return participant
-        }).filter(function(participant) {
-            console.log(participant);
-            return participant != null;
-        });
+        io.sockets.emit("broadcastState");
         clearInterval(pulse);
     });
-    socket.on("newUser", function(newUser) {
-        let newUserObj = assign(newUser);
-        PARTICIPANTS.push(PARTICIPANTS[newUserObj.id] = newUserObj);
-        console.log(PARTICIPANTS)
-        io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS));
-    });
-    socket.on("userName", function(userName) {
-        let newUserName = assign(userName);
-        PARTICIPANTS[userName.userId].UserName = userName.userName
-        io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS));
-    });
-    socket.on("userState", function(userState) {
+    // socket.on("newUser", function(newUser) {
+    //     let newUserObj = assign(newUser);
+    //     PARTICIPANTS.push(PARTICIPANTS[newUserObj.id] = newUserObj);
+    //     console.log(PARTICIPANTS)
+    //     io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS));
+    // });
+    // socket.on("userName", function(userName) {
+    //     let newUserName = assign(userName);
+    //     PARTICIPANTS[userName.userId].UserName = userName.userName
+    //     io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS));
+    // });
+    socket.on("broadcastState", function(userState) {
         console.log(userState)
-        io.sockets.emit("positionChanged", {id: data.id, name: data.name});
+        // io.sockets.emit("positionChanged", {id: data.id, name: data.name});
+        // console.log(PARTICIPANTS.length);
+        // // delete entries in our collection of users if they're not connected
+        PARTICIPANTS = assign(PARTICIPANTS || [{}])
+        .map(function(participant) {
+          for (var connected in io.sockets.connected)
+              if(connected.indexOf(participant.sessionId) !== -1)
+                 return participant
+        })
+        .filter(function(participant) {
+            return participant != null;
+        }).filter(function(participant) {
+            return participant.userId != userState.userId
+        })
+        // .reduce(function(a, b) {
+        //     return a.concat(b)
+        // })
+        .concat(userState);
+        console.log(PARTICIPANTS)
+        io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS))
     });
 });
