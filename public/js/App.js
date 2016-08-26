@@ -47,7 +47,7 @@ var App = React.createClass({
         self.socket.on('connect', function () {
             let sessionId = self.socket.io.engine.id;
             self.setSessionId(sessionId);
-            self.socket.emit('newUser', { "userId": sessionId, "userColor": self.state.userColor, "userName": self.state.userName });
+            self.broadcastState();
         });
         self.socket.on('heartbeat', function (timestampval) {
             self.handleHeartbeat(timestampval);

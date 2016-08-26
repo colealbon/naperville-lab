@@ -107,30 +107,17 @@ io.on('connection', function(socket) {
         var newpulse = parseInt(new Date().getTime() / 1000, 10);
           if (PULSE !== newpulse) {
               io.sockets.emit('heartbeat', new Date().getTime());
+              io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS))
+              io.sockets.emit("broadcastState")
               PULSE = newpulse;
           }
     }, 10000);
-
     socket.on('disconnect', function() {
         io.sockets.emit("broadcastState");
         clearInterval(pulse);
     });
-    // socket.on("newUser", function(newUser) {
-    //     let newUserObj = assign(newUser);
-    //     PARTICIPANTS.push(PARTICIPANTS[newUserObj.id] = newUserObj);
-    //     console.log(PARTICIPANTS)
-    //     io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS));
-    // });
-    // socket.on("userName", function(userName) {
-    //     let newUserName = assign(userName);
-    //     PARTICIPANTS[userName.userId].UserName = userName.userName
-    //     io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS));
-    // });
     socket.on("broadcastState", function(userState) {
         console.log(userState)
-        // io.sockets.emit("positionChanged", {id: data.id, name: data.name});
-        // console.log(PARTICIPANTS.length);
-        // // delete entries in our collection of users if they're not connected
         PARTICIPANTS = assign(PARTICIPANTS || [{}])
         .map(function(participant) {
           for (var connected in io.sockets.connected)
@@ -142,9 +129,6 @@ io.on('connection', function(socket) {
         }).filter(function(participant) {
             return participant.userId != userState.userId
         })
-        // .reduce(function(a, b) {
-        //     return a.concat(b)
-        // })
         .concat(userState);
         console.log(PARTICIPANTS)
         io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS))
