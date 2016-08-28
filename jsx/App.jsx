@@ -120,7 +120,7 @@ var App = React.createClass({
             mounted: false,
             userId: this.getGuid(),
             colorArr: this.getColorArr(),
-            userName: 'xxxxx',
+            userName: '',
             userColor: '#'+Math.floor(Math.random()*16777215).toString(16),
             activeDrags: 0,
             deltaPosition: {
@@ -130,6 +130,21 @@ var App = React.createClass({
               x: -400, y: 200
             }
         };
+    },
+    onStart: function() {
+      this.setState({activeDrags: ++this.state.activeDrags});
+    },
+    onStop: function() {
+      this.setState({activeDrags: --this.state.activeDrags});
+    },
+    handleDrag: function (e, ui) {
+      const {x, y} = this.state.deltaPosition;
+      this.setState({
+        deltaPosition: {
+          x: x + ui.deltaX,
+          y: y + ui.deltaY,
+        }
+      });
     },
     render: function() {
       return (
@@ -143,9 +158,12 @@ var App = React.createClass({
               userColor={this.state.userColor}
               setUserColor={this.setUserColor}
               setUserName={this.setUserName}
-              setActiveDrags={this.setDeltaPosition}
-              setDeltaPosition={this.setDeltaPosition}
-              setControlledPosition={this.setControlledPosition}
+              onStart = {this.onStart}
+              onStop = {this.onStop}
+              handleDrag = {this.handleDrag}
+              deltaPosition = {this.state.deltaPosition}
+              controlledPosition = {this.state.controlledPosition}
+              activeDrags = {this.state.activeDrags}
               broadcastState={this.broadcastState}
            />
       );

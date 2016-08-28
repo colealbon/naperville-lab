@@ -1,34 +1,21 @@
 var UserCircle = React.createClass({
     getInitialState: function () {
         return {
-            activeDrags: 0,
-            deltaPosition: {
-                x: 0, y: 0
-            },
-            controlledPosition: {
-                x: -400, y: 200
-            }
+            activeDrags: this.props.activeDrags,
+            deltaPosition: this.props.deltaPosition,
+            controlledPosition: this.props.controlledPosition,
         };
     },
-    onStart: function() {
-      this.setState({activeDrags: ++this.state.activeDrags});
-    },
-    onStop: function() {
-      this.setState({activeDrags: --this.state.activeDrags});
-    },
-    handleDrag: function (e, ui) {
-      const {x, y} = this.state.deltaPosition;
-      this.setState({
-        deltaPosition: {
-          x: x + ui.deltaX,
-          y: y + ui.deltaY,
-        }
-      });
-    },
-    render: function() {
-        const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
-        const {deltaPosition, controlledPosition} = this.state;
 
+    render: function() {
+        const onStart = this.props.onStart
+        const onStop = this.props.onStop
+        const handleDrag = this.props.handleDrag
+        const dragHandlers = {onStart: this.props.onStart, onStop: this.props.onStop};
+        const deltaPosition = this.props.deltaPosition;
+        const controlledPosition = this.props.controlledPosition;
+        const deltaPositionStr = (this.props.deltaPosition) ? this.props.deltaPosition : ""
+;
         var circleStyle = {
             borderRadius: "50%",
             width: "20px",
@@ -38,8 +25,9 @@ var UserCircle = React.createClass({
          };
         return (
             <ReactDraggable onDrag={this.handleDrag} {...dragHandlers}>
-            <article id='colorcircle' backgroundColor="#ffffff">
-            <span style={circleStyle}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ span>{this.props.userName}x: {deltaPosition.x.toFixed(0)}, y: {deltaPosition.y.toFixed(0)}
+            <article id='usercircle' backgroundColor="#ffffff">
+            <span style={circleStyle}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ span>
+                {this.props.userName} {deltaPositionStr}
             </ article>
             </ ReactDraggable>
         )

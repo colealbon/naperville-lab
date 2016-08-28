@@ -1,6 +1,5 @@
 body {
   border: 5px solid red;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 header {
   border: 5px solid orange;
@@ -23,9 +22,7 @@ footer {
   margin: 1 px;
   padding: 1 px;
 }
-span#serverlocale {
-    background: yellow
-}
+
 span#debuglabel {
     visibility: visible;
 }

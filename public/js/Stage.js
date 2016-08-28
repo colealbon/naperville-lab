@@ -2,13 +2,16 @@ var Stage = React.createClass({
     displayName: 'Stage',
 
     render: function () {
-        var setActiveDrags = this.props.setActiveDrags;
-        var setDeltaPosition = this.props.setDeltaPosition;
-        var setControlledPosition = this.props.setControlledPosition;
+        var onStart = this.props.onStart;
+        var onStop = this.props.onStop;
+        var handleDrag = this.props.handleDrag;
         var broadcastState = this.props.broadcastState;
         var users = this.props.participantlist ? this.props.participantlist : '[{}]';
         var usersArr = eval('(' + users + ')');
         var editorUserId = this.props.userId ? this.props.userId : '';
+        var editorDeltaPosition = this.props.deltaPosition;
+        var editorControlledPosition = this.props.controlledPosition;
+        var editorActiveDrags = this.props.activeDrags;
         var userCircles = usersArr.map(function (user) {
             return React.createElement(UserCircle, {
                 key: user.userId,
@@ -19,16 +22,18 @@ var Stage = React.createClass({
                 activeDrags: user.activeDrags,
                 deltaPosition: user.deltaPosition,
                 controlledPosition: user.controlledPosition,
-                setActiveDrags: setActiveDrags,
-                setDeltaPosition: setDeltaPosition,
-                setControlledPosition: setControlledPosition,
-                broadcastState: broadcastState
+                onStart: this.onStart,
+                onStop: this.onStop,
+                handleDrag: this.handleDrag,
+                editorDeltaPosition: this.deltaPosition,
+                editorControlledPosition: this.controlledPosition,
+                editorActiveDrags: this.activeDrags,
+                broadcastState: this.broadcastState
             });
         });
         return React.createElement(
             'section',
             { id: 'stage', 'class': 'stage' },
-            'stage section',
             userCircles
         );
     }

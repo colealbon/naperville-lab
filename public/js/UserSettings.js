@@ -15,8 +15,6 @@ var UserSettings = React.createClass({
         return React.createElement(
             "section",
             { id: "usersettings" },
-            "user settings section ",
-            this.props.userName,
             React.createElement(
                 "article",
                 { id: "selectedcolor" },
@@ -29,7 +27,6 @@ var UserSettings = React.createClass({
             React.createElement(
                 "article",
                 { id: "userNameinput" },
-                "userName input article",
                 React.createElement(UserNameInput, { userName: this.props.userName, setUserName: this.props.setUserName }),
                 React.createElement(
                     "button",

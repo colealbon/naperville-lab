@@ -2,8 +2,7 @@ var Main = React.createClass({
   render: function() {
     return (
     <main>
-        <span id="debuglagel" visibility="hidden">main</ span>
-        <Header app_name={this.props.app_name} visibility="hidden"/>
+        <Header app_name={this.props.app_name}/>
         <Stage
             userId={this.props.userId}
             participantlist={this.props.participantlist}

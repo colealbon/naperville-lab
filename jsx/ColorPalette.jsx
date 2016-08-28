@@ -10,7 +10,6 @@ var ColorPalette = React.createClass({
         var i = 0
         return (
         <article id='colorpalette'>
-            color palette section
             <table><tbody><tr >{this.paletteCircles()}</ tr></ tbody></ table>
         </ article>
         );

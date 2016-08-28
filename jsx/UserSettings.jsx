@@ -12,12 +12,10 @@ var UserSettings = React.createClass({
     };
     return (
     <section id='usersettings'>
-        user settings section {this.props.userName}
         <article id="selectedcolor">
         <div id="selected" style={circle100px}> </ div>
         </ article>
         <article id='userNameinput'>
-        userName input article
         <UserNameInput userName={this.props.userName} setUserName={this.props.setUserName} />
         <button type="button" onClick={this.broadcastState}>submit</button>
         </article>

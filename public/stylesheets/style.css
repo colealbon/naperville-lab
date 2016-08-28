@@ -1,0 +1,13 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+article#usercircle{
+  width: 200px
+}
+
+span#serverlocale {
+    background: yellow
+}
+span#debuglabel {
+    visibility: visible;
+}

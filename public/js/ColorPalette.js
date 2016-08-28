@@ -17,7 +17,6 @@ var ColorPalette = React.createClass({
         return React.createElement(
             "article",
             { id: "colorpalette" },
-            "color palette section",
             React.createElement(
                 "table",
                 null,
