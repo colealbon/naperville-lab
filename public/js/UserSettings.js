@@ -9,6 +9,7 @@ var UserSettings = React.createClass({
             borderRadius: "50%",
             width: "100px",
             height: "100px",
+            border: "5px solid black",
             backgroundColor: this.props.userColor
         };
         return React.createElement(

@@ -21,6 +21,7 @@
     <script src="js/ColorPalette.js"></script>
     <script src="js/UserNameInput.js"></script>
     <script src="js/UserSettings.js"></script>
+    <script src="js/Stage0.js"></script>
     <script src="js/Stage.js"></script>
     <script src="js/Main.js"></script>
     <script src="js/App.js"></script>

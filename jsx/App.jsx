@@ -21,8 +21,7 @@ var App = React.createClass({
             "sessionId": this.state.sessionId,
             "userColor": this.state.userColor,
             "userName": this.state.userName,
-            "userDeltaPosition": this.state.userDeltaPosition,
-            "userControlledPosition": this.state.userDeltaPosition,
+            "controlledPosition": this.state.controlledPosition,
             }
         );
     },
@@ -84,7 +83,6 @@ var App = React.createClass({
             var newState = this.state;
             newState.userName = userName;
             this.setState(newState);
-            this.socket.emit('userName', {"userId": this.state.userId, "userName": this.state.userName})
         }
     },
     getGuid: function () {
@@ -93,10 +91,32 @@ var App = React.createClass({
             return v.toString(16);
             });
     },
+    setControlledPosition: function(controlledPosition) {
+        if (this.state.controlledPosition !== controlledPosition) {
+            var newState = this.state;
+            newState.controlledPosition = controlledPosition;
+            this.setState(newState);
+        }
+    },
+    setDeltaPosition: function(deltaPosition) {
+        if (this.state.deltaPosition !== deltaPosition) {
+            var newState = this.state;
+            newState.deltaPosition = deltaPosition;
+            this.setState(newState);
+        }
+    },
+    setActiveDrags: function(activeDrags) {
+        if (this.state.activeDrags !== activeDrags) {
+            var newState = this.state;
+            newState.activeDrags = activeDrags;
+            this.setState(newState);
+        }
+    },
     getInitialState: function() {
         return {
             app_name: this.props.app_name,
             time_stamp: this.props.time_stamp,
+            participantlist: '[{}]',
             mounted: false,
             userId: this.getGuid(),
             colorArr: this.getColorArr(),
@@ -117,11 +137,15 @@ var App = React.createClass({
               app_name={this.state.app_name}
               participantlist={this.state.participantlist}
               time_stamp={this.state.time_stamp}
+              userId={this.state.userId}
               colorArr={this.state.colorArr}
               userName={this.state.userName}
               userColor={this.state.userColor}
               setUserColor={this.setUserColor}
               setUserName={this.setUserName}
+              setActiveDrags={this.setDeltaPosition}
+              setDeltaPosition={this.setDeltaPosition}
+              setControlledPosition={this.setControlledPosition}
               broadcastState={this.broadcastState}
            />
       );

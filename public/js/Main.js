@@ -10,7 +10,15 @@ var Main = React.createClass({
                 { id: "debuglagel", visibility: "hidden" },
                 "main"
             ),
-            React.createElement(Header, { app_name: this.props.app_name }),
+            React.createElement(Header, { app_name: this.props.app_name, visibility: "hidden" }),
+            React.createElement(Stage, {
+                userId: this.props.userId,
+                participantlist: this.props.participantlist,
+                setActiveDrags: this.props.setDeltaPosition,
+                setDeltaPosition: this.props.setDeltaPosition,
+                setControlledPosition: this.props.setControlledPosition,
+                broadcastState: this.props.broadcastState
+            }),
             React.createElement(UserSettings, {
                 userName: this.props.userName,
                 colorArr: this.props.colorArr,
@@ -19,10 +27,7 @@ var Main = React.createClass({
                 setUserName: this.props.setUserName,
                 broadcastState: this.props.broadcastState
             }),
-            React.createElement(Stage, {
-                participantlist: this.props.participantlist,
-                broadcastState: this.props.broadcastState
-            }),
+            React.createElement(Stage0, null),
             React.createElement(Footer, { time_stamp: this.props.time_stamp })
         );
     }

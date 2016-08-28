@@ -21,7 +21,8 @@ node ./node_modules/babel-cli/bin/babel.js --presets react jsx --out-dir ./publi
 0. refresh button resets the dot positions   
 
 # status (partially completed)  
-* <s>javascript program running under node.js</s>   
+* <s>javascript program running under node.js</s>  
+* <s>the circle owned by the user should have a border<s>
 * <s>input your name limited to 16 characters</s>
 * <s>there must be at least 8 color patches to choose from</s>
 * <s>user can select a color by clicking on one of the patches</s>
