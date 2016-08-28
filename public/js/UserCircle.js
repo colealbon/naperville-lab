@@ -10,15 +10,14 @@ var UserCircle = React.createClass({
             controlledPosition: this.props.controlledPosition
         };
     },
-
     render: function () {
-        const onStart = this.props.onStart;
-        const onStop = this.props.onStop;
-        const handleDrag = this.props.handleDrag;
+        //const onStart = this.props.onStart
+        //const onStop = this.props.onStop
+        //const handleDrag = this.props.handleDrag
         const dragHandlers = { onStart: this.props.onStart, onStop: this.props.onStop };
-        const deltaPosition = this.props.deltaPosition;
-        const controlledPosition = this.props.controlledPosition;
-        const deltaPositionStr = this.props.deltaPosition ? this.props.deltaPosition : "";
+        //const deltaPosition = this.props.deltaPosition;
+        //const controlledPosition = this.props.controlledPosition;
+        const deltaPositionStr = this.state.deltaPosition ? this.state.deltaPosition : "";
         var circleStyle = {
             borderRadius: "50%",
             width: "20px",

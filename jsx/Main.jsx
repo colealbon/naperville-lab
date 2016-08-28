@@ -6,10 +6,6 @@ var Main = React.createClass({
         <Stage
             userId={this.props.userId}
             participantlist={this.props.participantlist}
-            setActiveDrags={this.props.setDeltaPosition}
-            setDeltaPosition={this.props.setDeltaPosition}
-            setControlledPosition={this.props.setControlledPosition}
-            broadcastState={this.props.broadcastState}
             />
         <UserSettings
             userName={this.props.userName}
@@ -19,7 +15,6 @@ var Main = React.createClass({
             setUserName={this.props.setUserName}
             broadcastState={this.props.broadcastState}
             />
-        <Stage0 />
         <Footer time_stamp={this.props.time_stamp} />
     </main>
     );

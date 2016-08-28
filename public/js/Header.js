@@ -5,7 +5,7 @@ var Header = React.createClass({
     return React.createElement(
       "header",
       null,
-      app_name
+      " "
     );
   }
 });

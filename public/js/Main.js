@@ -8,11 +8,7 @@ var Main = React.createClass({
             React.createElement(Header, { app_name: this.props.app_name }),
             React.createElement(Stage, {
                 userId: this.props.userId,
-                participantlist: this.props.participantlist,
-                setActiveDrags: this.props.setDeltaPosition,
-                setDeltaPosition: this.props.setDeltaPosition,
-                setControlledPosition: this.props.setControlledPosition,
-                broadcastState: this.props.broadcastState
+                participantlist: this.props.participantlist
             }),
             React.createElement(UserSettings, {
                 userName: this.props.userName,
@@ -22,7 +18,6 @@ var Main = React.createClass({
                 setUserName: this.props.setUserName,
                 broadcastState: this.props.broadcastState
             }),
-            React.createElement(Stage0, null),
             React.createElement(Footer, { time_stamp: this.props.time_stamp })
         );
     }

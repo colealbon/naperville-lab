@@ -5,7 +5,6 @@ var Footer = React.createClass({
     return React.createElement(
       "footer",
       null,
-      "footer",
       React.createElement(Timestamp, { time_stamp: this.props.time_stamp })
     );
   }
