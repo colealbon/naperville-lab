@@ -14,9 +14,9 @@ var UserCircle = React.createClass({
       }
     };
   },
-
   handleDrag: function (e, ui) {
     const { x, y } = this.state.deltaPosition;
+    console.log({ "x": x, "y": y });
     this.setState({
       deltaPosition: {
         x: x + ui.deltaX,
@@ -58,7 +58,9 @@ var UserCircle = React.createClass({
     const { x, y } = position;
     this.setState({ controlledPosition: { x, y } });
   },
+
   render: function () {
+    const setDeltaPosition = this.props.setDeltaPosition;
     const dragHandlers = { onStart: this.props.onStart, onStop: this.props.onStop };
     const { deltaPosition, controlledPosition } = this.state;
     var circleStyle = {

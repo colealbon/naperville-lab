@@ -103,6 +103,7 @@ var App = React.createClass({
             var newState = this.state;
             newState.deltaPosition = deltaPosition;
             this.setState(newState);
+            this.broadcastState();
         }
     },
     setActiveDrags: function(activeDrags) {
