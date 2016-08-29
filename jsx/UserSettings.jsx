@@ -10,7 +10,6 @@ var UserSettings = React.createClass({
         border: "5px solid black",
         backgroundColor: this.props.userColor,
     };
-    console.log(this.props.userColor)
     var sampleCircle = (this.props.userColor) ? "" : <div id="selected" style={circle100px}> </ div>;
     return (
     <section id='usersettings'>

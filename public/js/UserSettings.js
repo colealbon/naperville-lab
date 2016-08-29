@@ -12,7 +12,6 @@ var UserSettings = React.createClass({
             border: "5px solid black",
             backgroundColor: this.props.userColor
         };
-        console.log(this.props.userColor);
         var sampleCircle = this.props.userColor ? "" : React.createElement(
             "div",
             { id: "selected", style: circle100px },

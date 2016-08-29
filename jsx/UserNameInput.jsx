@@ -12,7 +12,7 @@ var UserNameInput = React.createClass({
         <input
           type="text"
           maxlength="16"
-          value={this.props.userName}
+          value={this.userName}
           onChange={this.handleChange}
         />
       );
