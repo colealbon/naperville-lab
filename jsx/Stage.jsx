@@ -5,6 +5,8 @@ var Stage = React.createClass({
         var editorUserId = (this.props.userId) ? this.props.userId : '';
         var setControlledPosition = this.props.setControlledPosition
         var setDeltaPosition = this.props.setDeltaPosition
+        var broadcastState = this.props.broadcastState
+        var self = this;
         var userCircles = usersArr.map(function(user) {
             return (<UserCircle
                 key = {user.userId}
@@ -12,9 +14,9 @@ var Stage = React.createClass({
                 userId = {user.userId}
                 userName = {user.userName}
                 userColor = {user.userColor}
-                handleDrag = {this.handleDrag}
-                setControlledPosition = {this.setControlledPosition}
-                setDeltaPosition = {this.setDeltaPosition}
+                setControlledPosition = {self.setControlledPosition}
+                setDeltaPosition = {self.setDeltaPosition}
+                broadcastState = {self.broadcastState}
                 />
             )
         })

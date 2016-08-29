@@ -8,10 +8,7 @@ var Main = React.createClass({
             React.createElement(Header, { app_name: this.props.app_name }),
             React.createElement(Stage, {
                 userId: this.props.userId,
-                participantlist: this.props.participantlist,
-                setControlledPosition: this.props.setControlledPosition,
-                setDeltaPosition: this.props.setDeltaPosition,
-                broadcastState: this.props.broadcastState
+                participantlist: this.props.participantlist
             }),
             React.createElement(UserSettings, {
                 userName: this.props.userName,

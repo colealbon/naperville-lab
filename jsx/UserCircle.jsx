@@ -11,20 +11,26 @@ var UserCircle = React.createClass({
       };
     },
     handleDrag: function (e, ui) {
-      const {x, y} = this.state.deltaPosition;
-      console.log({"x":x, "y":y})
-      this.setState({
+        if (this.props.editorUserId !== this.props.userId) {
+              return false
+        }
+        const {x, y} = this.state.deltaPosition;
+        //console.log({"x":x, "y":y})
+        //console.log(this.state)
+        console.log(this.props.userId, JSON.stringify(this.state))
+        this.setState({
         deltaPosition: {
           x: x + ui.deltaX,
           y: y + ui.deltaY,
         }
-      });
+        });
     },
-
     onStart: function() {
-      this.setState({activeDrags: ++this.state.activeDrags});
+        if (this.props.editorUserId !== this.props.userId) {
+              return false
+        }
+        this.setState({activeDrags: ++this.state.activeDrags});
     },
-
     onStop: function() {
       this.setState({activeDrags: --this.state.activeDrags});
     },
@@ -62,7 +68,7 @@ var UserCircle = React.createClass({
         var circleStyle = {
             borderRadius: "50%",
             width: "20px",
-            height: "20px",
+            height: "24px",
             border: (this.props.editorUserId === this.props.userId) ? "2px solid black" : "2px solid {this.props.userColor}",
             backgroundColor: this.props.userColor,
          };

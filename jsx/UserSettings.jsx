@@ -3,14 +3,14 @@ var UserSettings = React.createClass({
         this.props.broadcastState()
     },
     render: function() {
-    var circle100px = {
+    var circle20px = {
         borderRadius: "50%",
-        width: "100px",
-        height: "100px",
-        border: "5px solid black",
+        width: "20px",
+        height: "20px",
+        border: "2px solid black",
         backgroundColor: this.props.userColor,
     };
-    var sampleCircle = (this.props.userColor) ? "" : <div id="selected" style={circle100px}> </ div>;
+    var sampleCircle = (this.props.userColor) ? <div id="selected" style={circle20px}> </ div> : "";
     return (
     <section id='usersettings'>
         <article id="selectedcolor">

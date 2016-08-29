@@ -6,9 +6,6 @@ var Main = React.createClass({
         <Stage
             userId={this.props.userId}
             participantlist={this.props.participantlist}
-            setControlledPosition={this.props.setControlledPosition}
-            setDeltaPosition={this.props.setDeltaPosition}
-            broadcastState={this.props.broadcastState}
             />
         <UserSettings
             userName = {this.props.userName}

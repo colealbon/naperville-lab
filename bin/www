@@ -107,13 +107,13 @@ io.on('connection', function(socket) {
         var newpulse = parseInt(new Date().getTime() / 1000, 10);
           if (PULSE !== newpulse) {
               io.sockets.emit('heartbeat', new Date().getTime());
-              io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS))
-              io.sockets.emit("broadcastState")
               PULSE = newpulse;
           }
     }, 1000);
     socket.on('disconnect', function() {
-        io.sockets.emit("broadcastState");
+        //io.sockets.emit("broadcastState");
+        //turn off timestamp every second
+        //if somebody is connected their client will reconnect and the timestamps will continue
         clearInterval(pulse);
     });
     socket.on("broadcastState", function(userState) {
@@ -130,7 +130,10 @@ io.on('connection', function(socket) {
             return participant.userId != userState.userId
         })
         .concat(userState);
-        console.log(PARTICIPANTS)
-        io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS))
+        setTimeout(function() {
+            // do async / await here instead of setTimeout
+            console.log(PARTICIPANTS)
+            io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS))
+        }, 10)
     });
 });
