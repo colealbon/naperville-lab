@@ -3,10 +3,6 @@ var Main = React.createClass({
     return (
     <main>
         <Header app_name={this.props.app_name}/>
-        <Stage
-            userId={this.props.userId}
-            participantlist={this.props.participantlist}
-            />
         <UserSettings
             userName = {this.props.userName}
             colorArr = {this.props.colorArr}
@@ -14,6 +10,11 @@ var Main = React.createClass({
             setUserColor = {this.props.setUserColor}
             setUserName = {this.props.setUserName}
             broadcastState = {this.props.broadcastState}
+            />
+        <Stage
+            userId={this.props.userId}
+            participantlist={this.props.participantlist}
+            setDeltaPosition = {this.props.setDeltaPosition}
             />
         <Footer time_stamp={this.props.time_stamp} />
     </main>

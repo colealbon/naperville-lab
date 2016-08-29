@@ -35,10 +35,14 @@ var UserSettings = React.createClass({
                             React.createElement(
                                 "article",
                                 { id: "userNameinput" },
-                                React.createElement(UserNameInput, { userName: this.props.userName, setUserName: this.props.setUserName }),
+                                React.createElement(UserNameInput, {
+                                    userName: this.props.userName,
+                                    setUserName: this.props.setUserName
+                                }),
                                 React.createElement(
                                     "button",
-                                    { type: "button", onClick: this.broadcastState },
+                                    {
+                                        type: "button", onClick: this.broadcastState },
                                     "submit"
                                 )
                             )

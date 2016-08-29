@@ -1,11 +1,11 @@
 var Stage = React.createClass({
-        render: function() {
+    render: function() {
         var users = (this.props.participantlist) ? this.props.participantlist : '[{}]'
         var usersArr = eval('(' + users + ')')
         var editorUserId = (this.props.userId) ? this.props.userId : '';
-        var setControlledPosition = this.props.setControlledPosition
         var setDeltaPosition = this.props.setDeltaPosition
         var broadcastState = this.props.broadcastState
+        var deltaPosition = this.props.deltaPosition
         var self = this;
         var userCircles = usersArr.map(function(user) {
             return (<UserCircle
@@ -14,14 +14,14 @@ var Stage = React.createClass({
                 userId = {user.userId}
                 userName = {user.userName}
                 userColor = {user.userColor}
-                setControlledPosition = {self.setControlledPosition}
+                userDeltaPosition = {user.deltaPosition}
                 setDeltaPosition = {self.setDeltaPosition}
                 broadcastState = {self.broadcastState}
                 />
             )
         })
         return (
-            <section id="stage" class="stage" >
+            <section id="stage" class="stage">
                 {userCircles}
             </section>
         );

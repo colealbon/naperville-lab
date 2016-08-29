@@ -6,10 +6,6 @@ var Main = React.createClass({
             "main",
             null,
             React.createElement(Header, { app_name: this.props.app_name }),
-            React.createElement(Stage, {
-                userId: this.props.userId,
-                participantlist: this.props.participantlist
-            }),
             React.createElement(UserSettings, {
                 userName: this.props.userName,
                 colorArr: this.props.colorArr,
@@ -17,6 +13,11 @@ var Main = React.createClass({
                 setUserColor: this.props.setUserColor,
                 setUserName: this.props.setUserName,
                 broadcastState: this.props.broadcastState
+            }),
+            React.createElement(Stage, {
+                userId: this.props.userId,
+                participantlist: this.props.participantlist,
+                setDeltaPosition: this.props.setDeltaPosition
             }),
             React.createElement(Footer, { time_stamp: this.props.time_stamp })
         );

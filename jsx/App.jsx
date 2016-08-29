@@ -21,12 +21,19 @@ var App = React.createClass({
             "sessionId": self.state.sessionId,
             "userColor": self.state.userColor,
             "userName": self.state.userName,
-            "controlledPosition": self.state.controlledPosition,
             "deltaPosition": self.state.deltaPosition,
-            "activeDrags": self.state.activeDrags,
             }
         );
-        console.log(self.s)
+        console.log( {
+                    "userId": self.state.userId,
+                    "sessionId": self.state.sessionId,
+                    "userColor": self.state.userColor,
+                    "userName": self.state.userName,
+                    "controlledPosition": self.state.controlledPosition,
+                    "deltaPosition": self.state.deltaPosition,
+                    "activeDrags": self.state.activeDrags,
+                    }
+                )
     },
     setUserId: function(userId) {
         if (this.state.userId !== userId) {
@@ -94,13 +101,6 @@ var App = React.createClass({
             return v.toString(16);
             });
     },
-    setControlledPosition: function(controlledPosition) {
-        if (this.state.controlledPosition !== controlledPosition) {
-            var newState = this.state;
-            newState.controlledPosition = controlledPosition;
-            this.setState(newState);
-        }
-    },
     setDeltaPosition: function(deltaPosition) {
         var self = this;
         if (self.state.deltaPosition !== deltaPosition) {
@@ -108,13 +108,6 @@ var App = React.createClass({
             newState.deltaPosition = deltaPosition;
             self.setState(newState);
             self.broadcastState(self.state);
-        }
-    },
-    setActiveDrags: function(activeDrags) {
-        if (this.state.activeDrags !== activeDrags) {
-            var newState = this.state;
-            newState.activeDrags = activeDrags;
-            this.setState(newState);
         }
     },
     getInitialState: function() {
@@ -125,7 +118,6 @@ var App = React.createClass({
             mounted: false,
             userId: this.getGuid(),
             colorArr: this.getColorArr(),
-
         };
     },
     render: function() {
@@ -140,9 +132,7 @@ var App = React.createClass({
               userColor={this.state.userColor}
               setUserColor={this.setUserColor}
               setUserName={this.setUserName}
-              setControlledPosition={this.setControlledPosition}
               setDeltaPosition={this.setDeltaPosition}
-              setActiveDrags={this.setActiveDrags}
               broadcastState={this.broadcastState}
            />
       );
