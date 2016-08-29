@@ -21,18 +21,44 @@ var UserSettings = React.createClass({
             "section",
             { id: "usersettings" },
             React.createElement(
-                "article",
-                { id: "selectedcolor" },
-                sampleCircle
-            ),
-            React.createElement(
-                "article",
-                { id: "userNameinput" },
-                React.createElement(UserNameInput, { userName: this.props.userName, setUserName: this.props.setUserName }),
+                "table",
+                null,
                 React.createElement(
-                    "button",
-                    { type: "button", onClick: this.broadcastState },
-                    "submit"
+                    "tbody",
+                    null,
+                    React.createElement(
+                        "tr",
+                        null,
+                        React.createElement(
+                            "td",
+                            null,
+                            React.createElement(
+                                "article",
+                                { id: "userNameinput" },
+                                React.createElement(UserNameInput, { userName: this.props.userName, setUserName: this.props.setUserName }),
+                                React.createElement(
+                                    "button",
+                                    { type: "button", onClick: this.broadcastState },
+                                    "submit"
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            "td",
+                            null,
+                            React.createElement(
+                                "article",
+                                { id: "selectedcolor" },
+                                React.createElement(
+                                    "div",
+                                    { height: "26px" },
+                                    " ",
+                                    sampleCircle,
+                                    " "
+                                )
+                            )
+                        )
+                    )
                 )
             ),
             React.createElement(ColorPalette, { colorArr: this.props.colorArr, setUserColor: this.props.setUserColor })

@@ -72,7 +72,7 @@ var UserCircle = React.createClass({
     var circleStyle = {
       borderRadius: "50%",
       width: "20px",
-      height: "24px",
+      height: "20px",
       border: this.props.editorUserId === this.props.userId ? "2px solid black" : "2px solid {this.props.userColor}",
       backgroundColor: this.props.userColor
     };
@@ -83,18 +83,26 @@ var UserCircle = React.createClass({
         "article",
         { id: "usercircle", backgroundColor: "#ffffff" },
         React.createElement(
-          "span",
-          { style: circleStyle },
-          "     "
-        ),
-        this.props.userName,
-        React.createElement(
-          "div",
+          "table",
           null,
-          "x: ",
-          deltaPosition.x.toFixed(0),
-          ", y: ",
-          deltaPosition.y.toFixed(0)
+          React.createElement(
+            "tbody",
+            null,
+            React.createElement(
+              "tr",
+              null,
+              React.createElement(
+                "td",
+                null,
+                React.createElement("div", { style: circleStyle })
+              ),
+              React.createElement(
+                "td",
+                null,
+                this.props.userName
+              )
+            )
+          )
         )
       )
     );

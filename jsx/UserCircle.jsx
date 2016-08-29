@@ -68,16 +68,24 @@ var UserCircle = React.createClass({
         var circleStyle = {
             borderRadius: "50%",
             width: "20px",
-            height: "24px",
-            border: (this.props.editorUserId === this.props.userId) ? "2px solid black" : "2px solid {this.props.userColor}",
+            height: "20px",
+            border:
+                (this.props.editorUserId === this.props.userId) ?
+                "2px solid black" :
+                "2px solid {this.props.userColor}",
             backgroundColor: this.props.userColor,
          };
         return (
             <ReactDraggable onDrag={this.handleDrag} {...dragHandlers}>
             <article id='usercircle' backgroundColor="#ffffff">
-            <span style={circleStyle}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ span>
-                {this.props.userName}
-                <div>x: {deltaPosition.x.toFixed(0)}, y: {deltaPosition.y.toFixed(0)}</div>
+            <table>
+            <tbody>
+            <tr>
+                <td><div style={circleStyle}></ div></ td>
+                <td>{this.props.userName}</ td>
+            </ tr>
+            </ tbody>
+            </ table>
             </ article>
             </ ReactDraggable>
         )
