@@ -15,6 +15,7 @@ var Main = React.createClass({
                 broadcastState: this.props.broadcastState
             }),
             React.createElement(Stage, {
+                key: this.props.participantlist,
                 userId: this.props.userId,
                 sessionId: this.props.sessionId,
                 participantlist: this.props.participantlist,
