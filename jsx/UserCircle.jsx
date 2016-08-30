@@ -80,7 +80,11 @@ var UserCircle = React.createClass({
                 backgroundColor: this.props.userColor,
          };
         return (
-            <ReactDraggable onDrag={this.handleDrag} {...dragHandlers}>
+            <ReactDraggable
+                onDrag={this.handleDrag}
+                defaultPosition = {this.props.userDeltaPosition}
+                {...dragHandlers}>
+
                 <article id='usercircle' backgroundColor="#ffffff">
                     <table>
                         <tbody>

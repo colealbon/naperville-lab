@@ -78,7 +78,10 @@ var UserCircle = React.createClass({
         };
         return React.createElement(
             ReactDraggable,
-            _extends({ onDrag: this.handleDrag }, dragHandlers),
+            _extends({
+                onDrag: this.handleDrag,
+                defaultPosition: this.props.userDeltaPosition
+            }, dragHandlers),
             React.createElement(
                 "article",
                 { id: "usercircle", backgroundColor: "#ffffff" },
