@@ -11,7 +11,6 @@ var App = React.createClass({
             var newState = this.state;
             newState.participantlist = newparticipantlist;
             this.setState(newState);
-            console.log(newState)
         }
     },
     broadcastState: function() {
@@ -25,13 +24,12 @@ var App = React.createClass({
             }
         );
         console.log( {
+                    "direction": "client -> server",
                     "userId": self.state.userId,
                     "sessionId": self.state.sessionId,
                     "userColor": self.state.userColor,
                     "userName": self.state.userName,
-                    "controlledPosition": self.state.controlledPosition,
                     "deltaPosition": self.state.deltaPosition,
-                    "activeDrags": self.state.activeDrags,
                     }
                 )
     },
@@ -53,9 +51,9 @@ var App = React.createClass({
     socketConn: function() {
         var self = this;
         self.socket.on('connect', function () {
-          let sessionId = self.socket.io.engine.id;
-          self.setSessionId(sessionId);
-          self.broadcastState()
+            let sessionId = self.socket.io.engine.id;
+            self.setSessionId(sessionId);
+            self.broadcastState()
         });
         self.socket.on('heartbeat', function (timestampval) {
             self.handleHeartbeat(timestampval);
@@ -107,7 +105,6 @@ var App = React.createClass({
             var newState = self.state;
             newState.deltaPosition = deltaPosition;
             self.setState(newState);
-            self.broadcastState(self.state);
         }
     },
     getInitialState: function() {

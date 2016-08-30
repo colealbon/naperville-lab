@@ -12,7 +12,12 @@ var UserCircle = React.createClass({
             }
         };
     },
-
+    broadcastState: function () {
+        this.props.broadcastState();
+    },
+    setDeltaPosition: function () {
+        this.props.setDeltaPosition();
+    },
     handleDrag: function (e, ui) {
         if (this.props.editorUserId !== this.props.userId) {
             return false;
@@ -24,14 +29,19 @@ var UserCircle = React.createClass({
                 y: y + ui.deltaY
             }
         });
+        this.props.setDeltaPosition(this.state.deltaPosition);
     },
-
     onStart: function () {
         this.setState({ activeDrags: ++this.state.activeDrags });
     },
-
     onStop: function () {
         this.setState({ activeDrags: --this.state.activeDrags });
+        this.broadcastState({
+            "userId": this.props.editorUserId,
+            "userName": this.props.userName,
+            "userColor": this.props.userColor,
+            "userDeltaPosition": this.state.deltaPosition
+        });
     },
 
     // For controlled component
@@ -41,7 +51,6 @@ var UserCircle = React.createClass({
         const { x, y } = this.state.controlledPosition;
         this.setState({ controlledPosition: { x: x - 10, y } });
     },
-
     adjustYPos: function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -49,12 +58,10 @@ var UserCircle = React.createClass({
         const { x, y } = this.state.controlledPosition;
         this.setState({ controlledPosition: { x, y: y - 10 } });
     },
-
     onControlledDrag: function (e, position) {
         const { x, y } = position;
         this.setState({ controlledPosition: { x, y } });
     },
-
     onControlledDragStop: function (e, position) {
         const { x, y } = position;
         this.setState({ controlledPosition: { x, y } });
@@ -93,18 +100,6 @@ var UserCircle = React.createClass({
                                 "td",
                                 null,
                                 this.props.userName
-                            ),
-                            React.createElement(
-                                "td",
-                                null,
-                                React.createElement(
-                                    "div",
-                                    null,
-                                    "x: ",
-                                    deltaPosition.x.toFixed(0),
-                                    ", y: ",
-                                    deltaPosition.y.toFixed(0)
-                                )
                             )
                         )
                     )

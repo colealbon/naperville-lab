@@ -16,8 +16,10 @@ var Main = React.createClass({
             }),
             React.createElement(Stage, {
                 userId: this.props.userId,
+                sessionId: this.props.sessionId,
                 participantlist: this.props.participantlist,
-                setDeltaPosition: this.props.setDeltaPosition
+                setDeltaPosition: this.props.setDeltaPosition,
+                broadcastState: this.props.broadcastState
             }),
             React.createElement(Footer, { time_stamp: this.props.time_stamp })
         );

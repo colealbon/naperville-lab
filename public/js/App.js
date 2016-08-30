@@ -13,7 +13,6 @@ var App = React.createClass({
             var newState = this.state;
             newState.participantlist = newparticipantlist;
             this.setState(newState);
-            console.log(newState);
         }
     },
     broadcastState: function () {
@@ -26,13 +25,12 @@ var App = React.createClass({
             "deltaPosition": self.state.deltaPosition
         });
         console.log({
+            "direction": "client -> server",
             "userId": self.state.userId,
             "sessionId": self.state.sessionId,
             "userColor": self.state.userColor,
             "userName": self.state.userName,
-            "controlledPosition": self.state.controlledPosition,
-            "deltaPosition": self.state.deltaPosition,
-            "activeDrags": self.state.activeDrags
+            "deltaPosition": self.state.deltaPosition
         });
     },
     setUserId: function (userId) {
@@ -108,7 +106,6 @@ var App = React.createClass({
             var newState = self.state;
             newState.deltaPosition = deltaPosition;
             self.setState(newState);
-            self.broadcastState(self.state);
         }
     },
     getInitialState: function () {

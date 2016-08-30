@@ -12,9 +12,11 @@ var Main = React.createClass({
             broadcastState = {this.props.broadcastState}
             />
         <Stage
-            userId={this.props.userId}
-            participantlist={this.props.participantlist}
+            userId = {this.props.userId}
+            sessionId = {this.props.sessionId}
+            participantlist = {this.props.participantlist}
             setDeltaPosition = {this.props.setDeltaPosition}
+            broadcastState = {this.props.broadcastState}
             />
         <Footer time_stamp={this.props.time_stamp} />
     </main>
