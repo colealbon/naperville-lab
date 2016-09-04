@@ -338,4 +338,5 @@ var Stage0 = React.createClass({
       )
     );
   }
+
 });
