@@ -30,12 +30,6 @@ var UserCircle = React.createClass({
                 y: y + ui.deltaY
             }
         });
-        /*
-        setTimeout(function() {
-            console.log(this.state.position)
-            this.props.setPosition(this.state.position);
-        });
-        */
     },
     onStart: function () {
         if (this.props.editorUserId !== this.props.userId) {
@@ -54,16 +48,12 @@ var UserCircle = React.createClass({
     render: function () {
         const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
         const { deltaPosition, controlledPosition } = this.state;
-        const offsetParentElement = document.body;
-        const visibility = this.props.connected ? "visible" : "";
-        const display = this.props.connected ? "inline" : "none";
-        const displayconnected = this.props.connected ? "none" : "inline";
         const userName = this.props.connected ? this.props.userName : "";
+
         var circleStyleVisible = {
             borderRadius: "50%",
             width: "20px",
             height: "20px",
-            display: { displayconnected },
             border: this.props.editorUserId === this.props.userId ? "2px solid black" : "2px solid {this.props.userColor}",
             backgroundColor: this.props.userColor
         };
@@ -77,8 +67,7 @@ var UserCircle = React.createClass({
             ReactDraggable,
             _extends({
                 onDrag: this.handleDrag,
-                defaultPosition: this.props.position,
-                offsetParent: this.offsetParentElement
+                defaultPosition: this.props.position
             }, dragHandlers),
             React.createElement(
                 "article",
@@ -100,9 +89,7 @@ var UserCircle = React.createClass({
                             React.createElement(
                                 "td",
                                 null,
-                                userName,
-                                " ",
-                                visibility
+                                userName
                             )
                         )
                     )
