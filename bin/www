@@ -98,7 +98,7 @@ var io = require('socket.io')(server);
 console.log("socketio starting " + new Date().toLocaleString());
 
 var PULSE = parseInt(new Date().getTime() / 1000, 10);
-var PARTICIPANTS = [];
+var PARTICIPANTS = {};
 
 io.on('connection', function(socket) {
     // node server time
@@ -116,24 +116,27 @@ io.on('connection', function(socket) {
         //if somebody is connected their client will reconnect and the timestamps will continue
         clearInterval(pulse);
     });
-    socket.on("broadcastState", function(userState) {
-        console.log(userState)
-        PARTICIPANTS = assign(PARTICIPANTS || [{}])
-        .map(function(participant) {
-          for (var connected in io.sockets.connected)
-              if(connected.indexOf(participant.sessionId) !== -1)
-                 return participant
+    function isConnected(sessionId) {
+        for (var connected in io.sockets.connected)
+            if(connected.indexOf(sessionId) !== -1)
+               return true
+    }
+    socket.on("broadcastState", function(participant) {
+        //hide unconnected users
+        participant.connected = isConnected(participant.sessionId)
+
+        // upsert the broadcaster's status
+        process.nextTick(function() {
+            PARTICIPANTS[participant.userId] = participant
+            // convert to array and broadcast
+            process.nextTick(function () {
+                //var participantArr = [];
+                var participantArr = Object.keys(PARTICIPANTS).map(function (key) {return PARTICIPANTS[key]});
+                //broadcast our array
+                process.nextTick(function() {
+                    io.sockets.emit('participantlist', JSON.stringify(participantArr))
+                })
+            })
         })
-        .filter(function(participant) {
-            return participant != null;
-        }).filter(function(participant) {
-            return participant.userId != userState.userId
-        })
-        .concat(userState);
-        setTimeout(function() {
-            // do async / await here instead of setTimeout
-            console.log(PARTICIPANTS)
-            io.sockets.emit('participantlist', JSON.stringify(PARTICIPANTS))
-        }, 10)
     });
 });

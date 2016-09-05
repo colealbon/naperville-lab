@@ -9,6 +9,7 @@ var App = React.createClass({
         }
     },
     handleParticipantList: function (newparticipantlist) {
+        console.log(newparticipantlist);
         if (this.state.participantlist !== newparticipantlist) {
             var newState = this.state;
             newState.participantlist = newparticipantlist;
