@@ -107,6 +107,7 @@ io.on('connection', function(socket) {
         var newpulse = parseInt(new Date().getTime() / 1000, 10);
           if (PULSE !== newpulse) {
               io.sockets.emit('heartbeat', new Date().getTime());
+              broadcastParticipantList();
               PULSE = newpulse;
           }
     }, 1000);
@@ -123,6 +124,21 @@ io.on('connection', function(socket) {
                 return true
             }
     }
+
+    function broadcastParticipantList() {
+        var participantArr = Object.keys(PARTICIPANTS)
+        .map(function (key) {
+            return PARTICIPANTS[key]
+        })
+        .map(function(participant) {
+            participant.connected = isConnected(participant.sessionId) || false;
+            return participant;
+        });
+        process.nextTick(function() {
+            io.sockets.emit('participantlist', JSON.stringify(participantArr))
+        })
+    }
+
     socket.on("broadcastState", function(participant) {
         // use "connected" to hide unconnected users
         // upsert the broadcaster's status
@@ -131,17 +147,7 @@ io.on('connection', function(socket) {
             // convert to array and broadcast
             process.nextTick(function () {
                 //refactor to a function that can be called elsewhere like from heartbeat
-                var participantArr = Object.keys(PARTICIPANTS)
-                .map(function (key) {
-                    return PARTICIPANTS[key]
-                })
-                .map(function(participant) {
-                    participant.connected = isConnected(participant.sessionId) || false;
-                    return participant;
-                });
-                process.nextTick(function() {
-                    io.sockets.emit('participantlist', JSON.stringify(participantArr))
-                })
+                broadcastParticipantList()
             })
         })
     });
