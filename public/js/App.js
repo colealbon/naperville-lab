@@ -22,7 +22,7 @@ var App = React.createClass({
             "sessionId": self.state.sessionId,
             "userColor": self.state.userColor,
             "userName": self.state.userName,
-            "deltaPosition": self.state.deltaPosition
+            "position": self.state.position
         });
         console.log({
             "direction": "client -> server",
@@ -30,7 +30,7 @@ var App = React.createClass({
             "sessionId": self.state.sessionId,
             "userColor": self.state.userColor,
             "userName": self.state.userName,
-            "deltaPosition": self.state.deltaPosition
+            "position": self.state.position
         });
     },
     setUserId: function (userId) {
@@ -100,11 +100,12 @@ var App = React.createClass({
             return v.toString(16);
         });
     },
-    setDeltaPosition: function (deltaPosition) {
+    setPosition: function (position) {
         var self = this;
-        if (self.state.deltaPosition !== deltaPosition) {
+        if (self.state.position !== { "x": position.x, "y": position.y }) {
+            //alert((position.x));
             var newState = self.state;
-            newState.deltaPosition = deltaPosition;
+            newState.position = { "x": position.x, "y": position.y };
             self.setState(newState);
         }
     },
@@ -129,7 +130,7 @@ var App = React.createClass({
             userColor: this.state.userColor,
             setUserColor: this.setUserColor,
             setUserName: this.setUserName,
-            setDeltaPosition: this.setDeltaPosition,
+            setPosition: this.setPosition,
             broadcastState: this.broadcastState
         });
     }

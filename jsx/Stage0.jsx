@@ -49,7 +49,7 @@ adjustYPos: function(e) {
 
 onControlledDrag: function(e, position) {
   const {x, y} = position;
-  this.setState({controlledPosition: {x, y}});
+  // this.setState({controlledPosition: {x, y}});
 },
 
 onControlledDragStop: function(e, position) {

@@ -5,6 +5,7 @@ var UserCircle = React.createClass({
 
     getInitialState: function () {
         return {
+            position: { x: 0, y: 0 },
             activeDrags: 0,
             deltaPosition: { x: 0, y: 0 },
             controlledPosition: {
@@ -15,48 +16,52 @@ var UserCircle = React.createClass({
     broadcastState: function () {
         this.props.broadcastState();
     },
-    setDeltaPosition: function () {
-        this.props.setDeltaPosition();
+    setPosition: function (position) {
+        this.props.setPosition(position);
     },
+    /*
     handleDrag: function (e, ui) {
         if (this.props.editorUserId !== this.props.userId) {
-            return false;
+            return false
         }
-        const { x, y } = this.state.deltaPosition;
+        const {x, y} = ui;
         this.setState({
-            deltaPosition: {
+            position: {
                 x: x + ui.deltaX,
-                y: y + ui.deltaY
+                y: y + ui.deltaY,
             }
         });
-        this.props.setDeltaPosition(this.state.deltaPosition);
+        setTimeout(function() {
+            console.log(this.state.position)
+            this.props.setPosition(this.state.position);
+        });
     },
+    */
     onStart: function () {
         this.setState({ activeDrags: ++this.state.activeDrags });
     },
     onStop: function (e, position) {
         var self = this;
-        alert("onStop " + "position: x:" + position.x + "y:" + position.y);
-        this.setState({ activeDrags: --this.state.activeDrags });
-        this.broadcastState({
-            "userId": self.props.editorUserId,
-            "userName": self.props.userName,
-            "userColor": self.props.userColor,
-            "position": self.position
+        // alert("onStop " + "position: x:" + position.x + "y:" + position.y)
+        self.setState({ activeDrags: --this.state.activeDrags });
+        self.setPosition(position);
+        setTimeout(function () {
+            // alert("broadcasting")
+            self.broadcastState();
         });
     },
 
     onControlledDrag: function (e, position) {
-        alert("onControlledDrag " + position.x + ":" + position.y);
+        // alert("onControlledDrag " + position.x + ":" + position.y)
         const { x, y } = position;
         this.setState({ controlledPosition: { x, y } });
     },
     onControlledDragStop: function (e, position) {
         alert("onControlledDragStop " + position.x + ":" + position.y);
-        alert(e);
+        //alert(e)
         const { x, y } = position;
-        this.setState({ controlledPosition: { x, y } });
-        // this.setState({deltaPosition: {position.deltaX, position.deltaY}});
+        //this.setState({controlledPosition: {x, y}});
+        //this.setState({deltaPosition: {position.deltaX, position.deltaY}});
     },
     render: function () {
         const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
@@ -73,7 +78,7 @@ var UserCircle = React.createClass({
             ReactDraggable,
             _extends({
                 onDrag: this.handleDrag,
-                defaultPosition: this.props.userDeltaPosition,
+                defaultPosition: this.props.position,
                 offsetParent: this.offsetParentElement
             }, dragHandlers),
             React.createElement(

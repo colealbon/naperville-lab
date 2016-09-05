@@ -16,7 +16,7 @@ var Main = React.createClass({
             userId = {this.props.userId}
             sessionId = {this.props.sessionId}
             participantlist = {this.props.participantlist}
-            setDeltaPosition = {this.props.setDeltaPosition}
+            setPosition = {this.props.setPosition}
             broadcastState = {this.props.broadcastState}
             />
         <Footer time_stamp={this.props.time_stamp} />
