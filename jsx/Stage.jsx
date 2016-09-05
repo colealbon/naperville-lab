@@ -7,11 +7,11 @@ var Stage = React.createClass({
         var setPosition = this.props.setPosition
         var broadcastState = this.props.broadcastState
         var userCircles = usersArr.map(function(user) {
-            console.log('---', user)
             return (<UserCircle
                 key = {user.userId}
                 editorUserId = {editorUserId}
                 userId = {user.userId}
+                connected = {user.connected}
                 userName = {user.userName}
                 userColor = {user.userColor}
                 sessionID = {sessionId}

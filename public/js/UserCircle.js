@@ -55,13 +55,24 @@ var UserCircle = React.createClass({
         const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
         const { deltaPosition, controlledPosition } = this.state;
         const offsetParentElement = document.body;
-        var circleStyle = {
+        const visibility = this.props.connected ? "visible" : "";
+        const display = this.props.connected ? "inline" : "none";
+        const displayconnected = this.props.connected ? "none" : "inline";
+        const userName = this.props.connected ? this.props.userName : "";
+        var circleStyleVisible = {
             borderRadius: "50%",
             width: "20px",
             height: "20px",
+            display: { displayconnected },
             border: this.props.editorUserId === this.props.userId ? "2px solid black" : "2px solid {this.props.userColor}",
             backgroundColor: this.props.userColor
         };
+        var circleStyleHidden = {
+            width: "20px",
+            height: "20px"
+        };
+        var circleStyle = this.props.connected ? circleStyleVisible : circleStyleHidden;
+
         return React.createElement(
             ReactDraggable,
             _extends({
@@ -89,7 +100,9 @@ var UserCircle = React.createClass({
                             React.createElement(
                                 "td",
                                 null,
-                                this.props.userName
+                                userName,
+                                " ",
+                                visibility
                             )
                         )
                     )

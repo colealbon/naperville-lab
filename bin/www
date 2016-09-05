@@ -113,26 +113,32 @@ io.on('connection', function(socket) {
     socket.on('disconnect', function() {
         //io.sockets.emit("broadcastState");
         //turn off timestamp every second
-        //if somebody is connected their client will reconnect and the timestamps will continue
+        //if somebody is connected their client will
+        //reconnect and the timestamps will continue
         clearInterval(pulse);
     });
     function isConnected(sessionId) {
         for (var connected in io.sockets.connected)
-            if(connected.indexOf(sessionId) !== -1)
-               return true
+            if (sessionId === connected.replace('/#', '')) {
+                return true
+            }
     }
     socket.on("broadcastState", function(participant) {
-        //hide unconnected users
-        participant.connected = isConnected(participant.sessionId)
-
+        // use "connected" to hide unconnected users
         // upsert the broadcaster's status
         process.nextTick(function() {
             PARTICIPANTS[participant.userId] = participant
             // convert to array and broadcast
             process.nextTick(function () {
-                //var participantArr = [];
-                var participantArr = Object.keys(PARTICIPANTS).map(function (key) {return PARTICIPANTS[key]});
-                //broadcast our array
+                //refactor to a function that can be called elsewhere like from heartbeat
+                var participantArr = Object.keys(PARTICIPANTS)
+                .map(function (key) {
+                    return PARTICIPANTS[key]
+                })
+                .map(function(participant) {
+                    participant.connected = isConnected(participant.sessionId) || false;
+                    return participant;
+                });
                 process.nextTick(function() {
                     io.sockets.emit('participantlist', JSON.stringify(participantArr))
                 })
